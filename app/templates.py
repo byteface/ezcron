@@ -4,8 +4,6 @@ import base64
 # from domonic.javascript import Math
 from domonic.html import *
 
-from .components.context_menu import *
-from .components.pad import *
 
 class Modal(object):
     
