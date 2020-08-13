@@ -1,0 +1,39 @@
+
+.cron-input {
+	color:black;
+	display:block;
+	font-family:"Courier New", Courier, monospace;
+	font-size:20px;
+	height:61.5px;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+	min-height:0px;
+	opacity:1;
+	outline-color:rgb(204, 204, 204);
+	padding-bottom:0px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-top:0px;
+	position:static;
+	text-align:center;
+	text-decoration-color:rgb(204, 204, 204);
+	text-decoration-style:solid;
+	text-indent:0px;
+	width:100%;
+	word-spacing:0px;
+}
+
+.cron-input input {
+	font-family: "Courier New", Courier, monospace;
+    text-align: center;
+    font-size: 20px;
+	width: 100%;
+	background: #333333 !important;
+    background-color: #333333;
+    border: 1px solid #cccccc;
+    border-radius: 0.6em;
+    color: #ffffff;
+	padding-top: 0.075rem;
+}

@@ -1,0 +1,5 @@
+cron-descriptor==1.2.24
+croniter==0.3.34
+domonic==0.1.2
+sanic==20.6.3
+requests==2.24.0
