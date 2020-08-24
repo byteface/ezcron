@@ -52,7 +52,7 @@ class CrontabRenderer(object):
         ref = 'modal_'+str(self.count) # the target modal
         return str(
                 div(
-                strong( parsed_line, _style=f'color:{hex};'),
+                strong( parsed_line, _style=f'color:{hex};', _class="thecron"),
                 " Runs: " + str(ExpressionDescriptor(parsed_line, options)),
                 " ", pre( escape(parsed_command) ),
                 " ",button( "✏️ EDIT", **{'_data-ref':ref}, _class='open btn-sm' ),
@@ -151,6 +151,7 @@ async def home(request):
     upt = str(uptime())
 
     page = article(
+        script(_src="/assets/js/later.min.js"),
         script(_src="/assets/js/master.js"),
         link(_rel="stylesheet", _type="text/css", _href="/assets/css/style.css"),
         div(

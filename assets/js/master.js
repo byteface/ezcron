@@ -28,7 +28,59 @@ function showRemaining(cron_date, el, timerid) {
 // --- TODO - use client to update all the calendars
 function update_calendars() {
 
+	// get each cron and color
+
+	// for each cron. stamp a color on teh date in teh calendar
+	$('.thecron').each(function(){
+		
+		var cron = $(this).text();
+		var col = $(this).find('a').css('color');
+		var s = later.parse.cron(cron);
+		// window.console.log(later.schedule(s).next(10));
+
+
+
+
+		var dates = later.schedule(s).next(1000);
+		for( var i=0; i<dates.length; i++ ){
+			draw_date_on_calendar(dates[i],cron,col);
+		}
+
+
+	});
+	
+	// for each record get the dates
+	// for each date
+	 // find the month
+	 // find the day
+	 // write a elements to that days number
+
 }
+
+function draw_date_on_calendar( date, cron, col ){
+	var month = date.getMonth();
+	var day = date.getDate();
+
+	// console.log(month,day);
+
+	var tables = $("table.month");
+	var days = $(tables[month]).find('td');
+	for(var i=0; i<days.length; i++){
+
+		// console.log( $(days[i]).text() , day );
+
+		var d = $(days[i]).text();
+		d = d.split('*').join('');
+
+		if(d == day){
+			// $(days[i]).css("background","red");
+			$(days[i]).append( "<a title='"+cron+"' style='color:"+col+";'>*</a>" );
+			break;
+		}
+	}
+}
+
+
 
 
 $(document).on('input propertychange paste', '.in_cron', function() {

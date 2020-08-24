@@ -23,3 +23,13 @@ App to view and edit crons
 
 <img src="https://github.com/byteface/ezcron/blob/master/assets/img/screenshot1.png" alt="screenshot">
 <img src="https://github.com/byteface/ezcron/blob/master/assets/img/screenshot2.png" alt="screenshot">
+
+
+
+##### made possible by:
+
+https://bradymholt.github.io/cron-expression-descriptor/
+
+https://pypi.org/project/croniter/
+
+http://bunkat.github.io/later/
