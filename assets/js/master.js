@@ -38,10 +38,10 @@ function update_calendars() {
 		var s = later.parse.cron(cron);
 		// window.console.log(later.schedule(s).next(10));
 
+		var dates = later.schedule(s).next(1000); // TODO - 86400 seconds per day * 365 days
+		// need to filter first on days already populated. then get count.
+		// potentialy modal a 'day' view. that can show hours/minutes
 
-
-
-		var dates = later.schedule(s).next(1000);
 		for( var i=0; i<dates.length; i++ ){
 			draw_date_on_calendar(dates[i],cron,col);
 		}
@@ -80,7 +80,7 @@ function draw_date_on_calendar( date, cron, col ){
 	}
 }
 
-
+// update_calendars();
 
 
 $(document).on('input propertychange paste', '.in_cron', function() {
@@ -93,3 +93,31 @@ $(document).on('input propertychange paste', '.in_cron', function() {
 
 
 // $(document).ready(function() {});
+
+window.run_job = function( line_number ){
+    $.get( '/run_job?line='+line_number, function( data ) {
+    	alert("RUN RAN!")
+    });
+}
+
+window.create_job = function( cron, command ){
+    $.get( '/update?cron='+line_number+"&command="+command, function( data ) {
+    	// window.console.log(data)
+    	console.log("CREATE RAN!")
+    });
+}
+
+window.update_job = function( cron, command ){
+    $.get( '/update?cron='+line_number+"&command="+command, function( data ) {
+    	// window.console.log(data)
+    	console.log("UPDATE RAN!")
+    });
+}
+
+window.delete_job = function( line_number ){
+    $.get( '/delete?line='+line_number, function( data ) {
+    	// window.console.log(data)
+    	console.log("DELETE RAN!")
+    });
+}
+

@@ -25,6 +25,12 @@ App to view and edit crons
 <img src="https://github.com/byteface/ezcron/blob/master/assets/img/screenshot2.png" alt="screenshot">
 
 
+##### NOTICE/WARNING
+I'm using this to test another lib. So if it doesn't run after updates you may need to upgrade
+
+    . venv/bin/activate
+    python3 -m pip install domonic --upgrade
+
 
 ##### made possible by:
 
