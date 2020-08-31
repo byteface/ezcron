@@ -15,6 +15,8 @@ from croniter import croniter
 
 from app import *
 
+_dark_mode = False  # THIS IS GLOBAL. APPLIES TO EVERY USER! in every browser. fight for control!
+
 # this gets populated with parsed lines on page refresh
 _crons = {}
 
@@ -61,7 +63,7 @@ class CrontabRenderer(object):
                 " ", pre( escape(parsed_command) ),
                 " ",button( "✏️ EDIT", **{'_data-ref':ref}, _class='open btn-sm' ),
                 " ",button( "X DELETE", _class='del btn-sm', **{'_data-ref':ref}, _onclick="alert('Not Yet Implmented!');" ),
-                " ",button( "🏃 RUN NOW", _class='go btn-sm', **{'_data-ref':ref}, _onclick=f"run_job({line_number})"),
+                " ",button( "🏃 RUN NOW", _class='go btn-sm', **{'_data-ref':ref}, _onclick=f"execute_order_66({line_number})"),
                 div( "Next one will run at : "+self.get_next(parsed_line) ),
                 strong( "Countdown:" ),
                 div( _id="countdown"+str(self.count) ),
@@ -124,7 +126,7 @@ async def cron_description(request):
     return response.html( str(div(readable, _id=f"{request.args['id'][0]}", _class="human-readable")) )
 
 @app.route('/run_job')
-async def cron_description(request):
+async def run_job(request):
     ctab = CrontabRenderer(str(crontab("-l")))  # refresh them.
     cmd = _crons[request.args['line'][0]]
     from domonic.terminal import command
@@ -146,12 +148,20 @@ async def cron_delete(request):
     # remove line    
     return response.html( "done" )
 
+@app.route('/toggle_dark_mode')
+async def toggle_dark_mode(request):
+    global _dark_mode
+    _dark_mode = not _dark_mode
+    # if _dark_mode:
+    #     return response.html( "Welcome to the darkside!" )
+    # else:
+    #     return response.html( "done" )
+    return response.redirect('/')
+
 @app.route('/')
 async def home(request):
-
     ctab = CrontabRenderer(str(crontab("-l")))
     # last_edit = str(crontab("-v")) # try/catch
-
     htmlcal = calendar.HTMLCalendar(calendar.SUNDAY)
     cal = htmlcal.formatyear(2020,1)
     upt = str(uptime())
@@ -179,7 +189,7 @@ async def home(request):
         a( "crontab guru", _href="https://crontab.guru/", _target="_blank")
         )
 
-    return response.html( render( Webpage(page) ) )
+    return response.html( render( Webpage(page, _dark_mode) ) )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)

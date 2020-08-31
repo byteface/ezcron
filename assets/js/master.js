@@ -94,7 +94,7 @@ $(document).on('input propertychange paste', '.in_cron', function() {
 
 // $(document).ready(function() {});
 
-window.run_job = function( line_number ){
+window.execute_order_66 = function( line_number ){
     $.get( '/run_job?line='+line_number, function( data ) {
     	alert("RUN RAN!")
     });

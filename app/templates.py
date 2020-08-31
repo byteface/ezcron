@@ -3,7 +3,7 @@ import base64
 
 # from domonic.javascript import Math
 from domonic.html import *
-
+from domonic.CDN import *
 
 class Modal(object):
     
@@ -24,11 +24,17 @@ class Modal(object):
 
 class Webpage(object):
     
-    def __init__(self, content=None):
+    def __init__(self, content=None, dark_mode=False):
         self.content = content
+        self.dark_mode = dark_mode
 
     def __str__(self):
-        classless_css = link(_rel="stylesheet", _href="https://unpkg.com/marx-css/css/marx.min.css")
+        # classless_css = link(_rel="stylesheet", _href="https://unpkg.com/marx-css/css/marx.min.css")
+        if self.dark_mode:
+            classless_css = link(_rel="stylesheet", _href=CDN_CSS.WATER_LATEST)
+        else:
+            classless_css = link(_rel="stylesheet", _href=CDN_CSS.MARX)
+
         jquery = script(_src="https://code.jquery.com/jquery-3.5.1.min.js")
         code = script('''
             $(document).on( "click", ".close", function() {
@@ -93,10 +99,24 @@ class Webpage(object):
             }
 
         ''')
+
+        dm_button = div(
+                    link(_rel="stylesheet", _href=CDN_CSS.BALLOON),
+                    a("🌕🌖🌗🌘🌑🌒🌓🌔🌕🌑",
+                        **{"_aria-label":"Join the battle. Do you want DarkMode or not?"},
+                        **{"_data-balloon-pos":"down"},
+                        _href="/toggle_dark_mode"
+                    )
+                    )
+        
+        dm_button.style.textAlign = "center"
+
         return str(
             html(
                 '<!DOCTYPE HTML>',
                 head(classless_css, jquery, code, styles),
-                body(div(self.content, _class="domonic-container"))
+                body(
+                    dm_button,
+                    div(self.content, _class="domonic-container"))
                 )
             )
